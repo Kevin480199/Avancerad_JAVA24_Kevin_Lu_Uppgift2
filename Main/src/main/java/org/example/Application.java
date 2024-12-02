@@ -24,8 +24,16 @@ public class Application {
                 case 2:
                     findStudent();
                     break;
+                case 3:
+                    showAllStudents();
             }
         }while(running);
+    }
+
+    private void showAllStudents() {
+        for (Student student : students){
+            System.out.println("Stundent ID: " + student.getId() + ", Student name: " + student.getName() + ", Student grade: " + student.getGrade());
+        }
     }
 
     private void findStudent() {
