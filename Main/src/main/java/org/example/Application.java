@@ -1,5 +1,8 @@
 package org.example;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -16,6 +19,7 @@ public class Application {
             System.out.println("1. Add Student");
             System.out.println("2. Find student");
             System.out.println("3. Show all students");
+            System.out.println("4. Save students to file");
             int option = scanner.nextInt();
             switch (option){
                 case 1:
@@ -26,8 +30,23 @@ public class Application {
                     break;
                 case 3:
                     showAllStudents();
+                    break;
+                case 4:
+                    saveToFile();
             }
         }while(running);
+    }
+
+    private void saveToFile() {
+        String fileName = "students.csv";
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))){
+            for (Student student : students){
+                writer.write(student.getName()+","+student.getGrade());
+                writer.newLine();
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     private void showAllStudents() {
