@@ -1,8 +1,6 @@
 package org.example;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -20,6 +18,8 @@ public class Application {
             System.out.println("2. Find student");
             System.out.println("3. Show all students");
             System.out.println("4. Save students to file");
+            System.out.println("5. Read from file");
+            System.out.println("6. Exit");
             int option = scanner.nextInt();
             switch (option){
                 case 1:
@@ -33,8 +33,30 @@ public class Application {
                     break;
                 case 4:
                     saveToFile();
+                    break;
+                case 5:
+                    readFromFile();
+                    break;
+                case 6:
+                    running = false;
+                    break;
             }
         }while(running);
+    }
+
+    private void readFromFile() {
+        String fileName = "students.csv";
+        try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
+            String line;
+            while((line = reader.readLine()) != null){
+                String[] data = line.split(",");
+                String name = data[0];
+                int grade = Integer.parseInt(data[1]);
+                students.add(new Student(name, grade));
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
     private void saveToFile() {
@@ -50,6 +72,9 @@ public class Application {
     }
 
     private void showAllStudents() {
+        if (students.isEmpty()){
+            System.out.println("Please add students first");
+        }
         for (Student student : students){
             System.out.println("Stundent ID: " + student.getId() + ", Student name: " + student.getName() + ", Student grade: " + student.getGrade());
         }
