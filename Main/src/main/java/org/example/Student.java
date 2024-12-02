@@ -15,4 +15,7 @@ public class Student {
     public int getId() {
         return studentId;
     }
+    public String getName() {
+        return name;
+    }
 }
