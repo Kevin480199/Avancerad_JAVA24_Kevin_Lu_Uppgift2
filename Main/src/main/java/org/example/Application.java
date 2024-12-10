@@ -6,9 +6,10 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Application {
+    static Application application = new Application();
     private Scanner scanner;
     private LinkedList<Student> students;
-    Application(){
+    private Application(){
         students = new LinkedList<>();
         scanner = new Scanner(System.in);
         boolean running = true;
@@ -76,7 +77,7 @@ public class Application {
             System.out.println("Please add students first");
         }
         for (Student student : students){
-            System.out.println("Stundent ID: " + student.getId() + ", Student name: " + student.getName() + ", Student grade: " + student.getGrade());
+            System.out.println("Student ID: " + student.getId() + ", Student name: " + student.getName() + ", Student grade: " + student.getGrade());
         }
     }
 
@@ -109,5 +110,8 @@ public class Application {
             System.out.println("Enter a grade between 1-5");
             scanner.next();
         }
+    }
+    public static Application getInstance(){
+        return application;
     }
 }
